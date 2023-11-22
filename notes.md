@@ -168,7 +168,6 @@ A alterar o nome da aplicação, configurando uma splash screen e mudando o íco
 
 @@01
 Projeto da aula anterior
-PRÓXIMA ATIVIDADE
 
 Caso queira começar daqui, você pode baixar o projeto da aula anterior nesse link.
 Para acompanhar os vídeos desta aula, você poderá baixar os estilos (daqui) também ;)
@@ -339,7 +338,6 @@ Estilos
 
 @@05
 Correção do Teclado
-PRÓXIMA ATIVIDADE
 
 Observação:
 Se você perceber que, ao clicar na quantidade do último item e o teclado aparecer e sumir, é possível adicionar a propriedade removeClippedSubviews={false} na FlatList, que está dentro do seu index principal, na pasta "Carrinho", para resolver esse problema, o código ficará assim:
@@ -475,7 +473,6 @@ Moeda, Total e expandir
 
 @@08
 Criando um componente
-PRÓXIMA ATIVIDADE
 
 Qual seria a melhor forma de declarar um componente React Native?
 
@@ -523,7 +520,6 @@ Utilizamos o componente em forma de função ou classe para prevenir problemas d
 
 @@09
 Faça como eu fiz: Tela de serviços
-PRÓXIMA ATIVIDADE
 
 Começamos organizando as pastas do projeto, criando uma pasta src para armazenar nosso código e outra chamada telas dentro para colocarmos nossas telas. Então criamos a pasta Servicos com um index.js dentro que será a nossa tela de serviços.
 Sem esquecer de envolver todo conteúdo em um SafeAreaView e adicionar a StatusBar, vamos retornar nossa lista de serviços estática com uma FlatList. A renderização de cada item pode ser realizada por meio de um novo componente chamado Item que fica dentro da pasta de Servicos, contendo o nome, preço e descrição do serviço.
@@ -536,7 +532,6 @@ Ao fim dessa aula temos a tela de serviços estática estilizada e também confi
 
 @@10
 Para saber mais: Class X Function Component
-PRÓXIMA ATIVIDADE
 
 O componente em formato de classe era a forma mais comum de criar componentes do React até pouco tempo e ainda funciona. Basicamente consiste em criar uma classe que estende um Component, e dentro dela implementamos métodos para os ciclos de vida do React e para renderizar os componentes na tela.
 import React from 'react'
@@ -568,9 +563,218 @@ Podemos ver que em formato de função temos as mesmas funcionalidades com uma e
 
 @@11
 O que aprendemos?
-PRÓXIMA ATIVIDADE
 
 Nesta aula construímos a primeira tela, a tela de serviços, com uma lista de serviços fixa e o botão de adicionar ao carrinho estilizados. Também isolamos os componentes de botão e campo numérico para que possamos reutilizar depois. Os conceitos aprendidos nesta aula foram:
 Como criar um componente e utilizá-lo em outro componente;
 Utilizar SafeAreaView e StatusBar para que nossas telas não sejam sobrepostas aos elementos do dispositivo como a barra de status e barra inferior de gestos do iPhone;
 Formatar moedas com intl.
+
+#### 22/11/2023
+
+@03-Carrinho
+
+@@01
+Projeto da aula anterior
+
+Caso queira começar daqui, você pode baixar o projeto da aula anterior nesse link.
+
+@@02
+KeyboardAvoidingView
+
+[00:00] Antes de começarmos a criar a nossa tela de carrinho, vamos olhar o que já fizemos até agora. Fizemos a nossa tela de serviços com o nome, a descrição do serviço e o preço, podemos clicar no serviço e expandi-lo para que possamos adicionar o carrinho. Podemos melhorar esse botão de adicionar e descrever que vamos adicionar ao carrinho.
+[00:21] Vamos ver dentro de telas serviços no "index" do item, lá no final temos o botão. Vamos alterar o valor do botão para ao invés de adicionar vou colocar Adicionar ao Carrinho. Pronto. Agora já estamos especificando melhor onde estamos adicionando.
+
+[00:44] Essa lista já permite que façamos um scroll. Só que se fazemos um scroll para baixo você pode ver que aqui está cortando. Isso porque a nossa lista não está ocupando a tela inteira, está ocupando só o tanto que ela precisa mesmo, o tanto que ela precisa na tela. Vamos alterar para que ela ocupe a tela inteira.
+
+[01:10] Dentro de serviços, no "index", temos a nossa SafeAreaView, que é a nossa tela completa. Vamos fazer com que ela se expanda até o fim da nossa tela do celular. Para isso, já temos um estilo pronto que está aqui dentro de "src/estilos", que importamos na outra aula, que é esse preencher. Vamos aplicar esse preencher na nossa lista.
+
+[01:38] Ele está sendo criado com o StyleSheet.create do React Native, porque, dessa forma, o React Native consegue tratar melhor os estilos e também consegue aplicar melhor as regras dos estilos mesmo. Se tiver algum erro ele vai nos dizer melhor onde está o erro.
+
+[02:01] Agora precisamos importar esses estilos dentro dos nossos serviços. Vamos lá em cima, chamamos o Import, vamos chamar de estilosGlobal from e precisamos voltar algumas pastas, duas especificamente, para chegarmos de volta dentro da pasta “src”.
+
+[02:23] E pegamos os estilos que estão lá dentro. import estilosGlobal from '../ ../estilos';. Agora para aplicarmos é bem simples, é só chamarmos o style dentro o SafeAreaView, abre e fecha colchetes, estilosGlobal.preencher. <SafeAreaView style={estilosGlobal.preencher}>. Vamos salvar e vamos testar. Agora já podemos arrastar para baixo e não vai cortar mais.
+
+[02:50] Além disso, se expandirmos aqui todos eles e clicar nesse último input de quantidade, podemos ver que o teclado fica por cima do input e não conseguimos ver o que estamos digitando. Até digitamos só que não conseguimos ver. Precisamos fazer com que a nossa tela diminua quando o teclado aumente e que o teclado seja como se fizesse parte mesmo da nossa tela.
+
+[03:17] Por sorte também temos um componente do React Native que permite com que possamos controlar isso de uma forma mais fácil. Esse componente precisamos importá-lo aqui em cima de React Native e se chama KeyBoardAvoidingView. Além disso, também precisamos importar o componente Platform, ele vai nos dizer qual é a plataforma que está rodando a nossa aplicação, se está rodando no IOS ou se está rodando Android.
+
+[03:48] Precisamos disso porque precisamos aplicar diferentes estilos nesse KeyBoardAvoidingView para cada sistema operacional. Importando os dois podemos vir embaixo da StatusBar, chamamos o KeyBoardAvoidingView e deixa dentro dele a FlatList, temos que fechá-lo embaixo da FlatList.
+
+[04:15] Agora também precisamos fazer aquele estilo que na verdade se chama behavior={}, vou dar um "Enter" aqui para ficar mais fácil vermos.
+
+[04:30] Precisamos verificar qual é o sistema operacional utilizando o {Platform.OS}, de Operacional System, Platform.OS == “ios”, fazemos um if line na verdade. Se Platform.OS == “ios” ?, vamos aplicar o ”padding”, senão aplicamos ”height”. No caso do IOS, o behavior vai ser padding e no caso do Android o behavior vai ser heigth. behavior={Platform.OS == "ios" ? "padding" : "heigth"}>.
+
+[05:12] Também precisamos fazer com que esse KeyBoardAvoidingView esteja na tela inteira, assim como fizemos com a SafeAreaView. Vamos copiar este estilo e colar aqui dentro do KeyboardAvoidingView salvando.
+
+[05:28] Vamos testar para ver se já funcionou. Expandimos todos e clicamos na última quantidade.
+
+[05:36] Pronto. Agora a nossa tela sobe para que o nosso input fique visível sempre que abrimos o teclado. Se eu digitar, já vamos ter visível o que estamos digitando. Na próxima aula, vamos começar a trabalhar na nossa tela de carrinho.
+
+@@03
+Tela do Carrinho
+
+[00:00] Vamos começar criando a estrutura da nossa página de carrinho. A tela de carrinho é muito parecida com a tela de serviços. Podemos inicialmente duplicar a tela de serviços e colar outra dentro de serviços também renomeando para “Carrinho”.
+[00:22] Eu fiz uma cópia da tela de serviços e renomeei a pasta para “Carrinho”. Dentro do “Carrinho”, do “index”, também precisamos renomear o nome da função do componente que está aqui como “Serviços”, vamos renomear para “Carrinho”. export default function Carrinho () {.
+
+[00:42] Feito isso, vou salvar e nada mudou ainda porque, ainda não mudamos nada, estamos usando a tela de serviços. Vamos lá no “App.js” e trocar de serviços para carrinho. Import Carrinho ao invés de serviços, from ‘./src/telas/Carrinho’.
+
+[01:07] Embaixo precisamos retornar o carrinho também, return <Carrinho />. Mais para frente vamos ver como fazer um menu para fazer essa troca mais fácil, inicialmente vamos criar assim.
+
+[01:21] Agora a nossa tela de carrinho está sendo carregada aqui. Vou fechar o “App.js”. Precisamos, aqui dentro, de serviços para informar a quantidade do serviço que está dentro do carrinho porque como ela já está dentro do carrinho já selecionamos a quantidade antes. Caso aconteça esse erro que ele não está conseguindo encontrar o item é porque existem dois itens em duas pastas diferentes, pode ser que o React Native se perca ao carregar o projeto.
+
+[01:56] Caso isso aconteça e você recarregue e ainda assim aconteça esse erro, você pode vir no terminal que está rodando e parar o serviço.
+
+[02:10] Vou parar o serviço e dar start de novo, npm start. Aguardamos um pouco e pronto, já “startou” e vou recarregar a aplicação. Está baixando a aplicação novamente. Enquanto isso, vamos no nosso código e começar a inserir a quantidade.
+
+[02:44] Colocar a vírgula no final da descrição e quantidade em cada um dos elementos da nossa lista de serviços. Vou colocar a quantidade: 1 no banho, quantidade: 2 na vacina V4 e quantidade: 1 de novo na vacina Antirrábica.
+
+[] Salvando aqui, não temos nenhuma alteração porque não mexemos em nada, só adicionamos um elemento. Vamos fazer com que esse valor seja atualizado na nossa quantidade. E também podemos expandir essa informação de quantidade já que ela sempre vai ter que ficar visível, já que precisamos ver quanto temos dentro do nosso carrinho.
+
+[03:31] Vamos vir no item, já alterar esse botão de adicionar ao carrinho para remover do carrinho. Aqui embaixo no botão, onde está “Adicionar ao Carrinho”, vamos colocar “Remover do Carrinho”. Botao valor="Remover do Carrinho" acao=() =>.
+
+[03:51] Pronto. Já temos a alteração do botão do “remover do carrinho”, tiramos essa opção de expandir onde tem abre chaves expandir e dois “e” comerciais, “&&”, podemos remover e removemos também o fim das chaves. Ajustamos a indentação.
+
+[04:13] Agora sempre vamos ter essa parte visível.
+
+[04:19] Vamos também alterar para que consigamos ver a quantidade que acabamos de passar. Aqui temos esse InverteExpandir que podemos remover, já que não estamos mais utilizando e também podemos transformar essa parte do clique do item em uma view novamente, uma view com os estilos de informação porque não precisamos mais clicar.
+
+[04:46] Vou tirar o Onpacity, vou colocar view em vez de TouchableOpacity e vou tirar aqui embaixo o fechamento e vou colocar uma view fechando.
+
+[05:02] Vamos ver aqui, remover a importação dele, já que não estamos mais utilizando. Agora já temos a nossa tela expandida, os itens expandidos dentro da nossa tela. Vamos procurar onde está a quantidade.
+
+[05:17] A quantidade vem como parâmetro, pegamos a quantidade, mas como já estamos utilizando uma vez a variável quantidade precisamos renomeá-la, pode ser quantidadeInicial. Coloco aqui dois pontos e quantidade inicial. :quantidadeInicial.
+
+[05:39] Vamos alterar esse 1, do UseState(1), para quantidadeInicial.
+
+[05:54] Atualizando, já vemos que o número 2 foi atualizado na quantidade como passamos pelo parâmetro a quantidade inicial. Vamos remover esse expandir, esse useState e também precisamos fazer com que ele atualize o total certo aqui, ele está mostrando o total do valor inicial apenas.
+
+[06:17] Então no total em vez do preço, podemos ter o preço vezes a quantidade inicial. Total] = useState(preco * quantidadeInicial); Pronto. Já temos o total, se alterarmos volta a ser o valor anterior. Está funcionando tudo certo.
+
+[06:40] Podemos ver aqui, por exemplo, já no Carrinho tem um código um pouco repetido, que é esse código de área SafeAreaView, do KeyboardAvoidingView e da StatusBar também. Vamos criar um componente que unifica todos esses componentes para podermos utilizá-lo tanto no Carrinho quanto em serviços.
+
+[07:04] Para isso, eu vou vir na pasta Componentes e vou criar dentro de uma pasta “TelaPadrao”, um “index.js”. Nesse “index”, eu vou começar importando import React from 'react';.
+
+[07:33] E exportamos o componente como default e ele se chama tela padrão. export default function TelaPadrao( ) {}. A tela padrão precisamos colocá-la ao redor de alguma coisa, vamos precisar ter o children. O children é uma propriedade que é passada em todos os componentes, o que está dentro da instância do componente. export default function TelaPadrao({children}) {}.
+
+[08:12] Quando chamamos aqui, por exemplo, o KeyBoardAvoidingView e temos dentro dele o FlatList, no caso do componente do KeyBoardAvoidingView, onde está a implementação lá no código do React Native, o children dele será essa FlatList.
+
+[08:30] Temos o children aqui. Podemos retornar toda essa parte do KeyboardAvoidingView, vamos no Carrinho e copiamos desde o KeyBoardAvoidingView até o SafeAreaView, retornamos isso dentro, vai ter o children que acabamos de pegar de propriedades e temos que fechar todas as propriedades.
+
+[08:56] Fechamos o Keyboardavoidingview e fecha o Safeareaview também. {children} </KeyboardAvoidView> </SafeAreaView>.
+
+[09:04] Precisamos de algumas que ainda não estão aqui. Precisamos importar o estilo, precisamos importar o Platform e também precisamos importar todos os componentes que estamos usando.
+
+[09:15] Podemos pegar da tela do Carrinho o SafeAreaView, o StatusBar e o Keyboardavoidingview. Vamos importar manualmente. import {SafeAreaView} from 'react-native';, porque acho que ele já vai importar algumas coisas para nós. Precisamos da StatusBar, também precisamos do Keyboardavoidingview e Platform. import {SafeAreaView, StatusBar, KeyboardAvoidingView, Platform} from 'react-native'.
+
+[09:56] Ainda precisamos dos estilos global. import estilosGlobal from, precisamos voltar aquelas pastas, voltamos duas pastas e pegamos os estilos do “src”. import estilosGlobal from '.. / .. /estilos'.
+
+[10:15] Acho que são esses os imports que estavam faltando. Feito isso, vamos utilizar essa tela padrão no carrinho para ver se está funcionando. Vamos importar, na verdade podemos remover do <SafeAreaView até o style do Carrinho.
+
+[10:32] E dentro de SafeAreaView colocamos só a tela padrão, só fechando com tela padrão.
+
+[10:42] Temos tela padrão com o FlatList dentro. return <TelaPadrao> <FlatList. Precisamos importar a tela padrão, já vai dar um erro aqui. Como não estamos usando os estilos globais podemos apagar, vamos apagar os outros imports que não estamos utilizando, como o SafeAreaView, o StatusBar, o KeyboardAvoidingView e o Platform, vai ficar só a FlarList. import { FlatList } from 'react-native';.
+
+[11:07] Importamos a tela padrão que acabamos de criar dentro do carrinho. import TelaPadrao from, voltamos duas pastas, entra dentro dos componentes e selecionamos a Tela padrão. import TelaPadrao from '.. / .. /componentes/TelaPadrao.
+
+[11:25] Pronto. Agora já temos a nossa tela padrão, nossos estilos de organização de tela no lugar separado. Podemos aplicar também lá dentro dos serviços. Vamos vir aqui no “Index” de serviços, vamos remover todos esses imports, deixar apenas a FlatList.
+
+[11:50] Importamos a tela padrão, import TelaPadrão from, volta duas pastas dentro de componentes, TelaPadrão. import TelaPadrao from '.. / .. /componentes/TelaPadrao'.
+
+[12:07] Podemos remover os estilos globais já que já vamos removê-los lá debaixo e tiramos a SafeAreaview, a StatusBar e o KeyboardAvoidingView e deixamos só a tela padrão. return <TelaPadrao>. A mesma coisa para fecharmos só a tela padrão e remove KeyboarAvoidingView. Identamos a FlatList, podemos salvar e não vai acontecer nada porque ainda estamos no “App.js” utilizando o carrinho.
+
+[12:43] Podemos trocar para ver se está tudo certo. Vou trocar no “App.js” de carrinho para serviços novamente. import Servicos from './src/telas/Servicos'; export default function App() { return <Servicos />.
+
+[11:57] Vou salvar. Pronto. Temos os serviços funcionando normalmente ainda e vou voltar para o carrinho. import Carrinho from './src/telas/Carrinho'; export default function App() { return <Carrinho />.
+
+[13:08] Todas as ocorrências de serviços eu troquei para carrinho. Salvamos. Já temos aqui a nossa tela de carrinho de novo, dá para ver pelo remover do carrinho, o botão que mudamos o nome. Na próxima aula, vamos criar o status do carrinho também.
+
+@@04
+Status do Carrinho
+
+[00:00] Nessa aula, vamos criar o status do Carrinho, que é aquela parte superior que fica mostrando o total e o botão de adicionar, de continuar com o pedido. Vamos vir em “Componentes” e criar esse novo componente de “StatusCarrinho”.
+[00:19] Esse StatusCarrinho vai ter um “Index.js” e também tem um estilo, esse estilo vai está disponível nesta aula para você pegar. Você pega esse arquivo, que vai ser estilosStatusCarrinho e colocamos dentro do statusCarrinho. Vamos renomear esse estilo para deixar só estilos.js. Agora temos a pasta dentro de componentes, StatusCarrinho com o index e o “estilo.js” dentro.
+
+[00:54] Vamos vir no “index.js” e vamos começar importando o React from react. import React from 'react'. Também precisamos exportar default a nossa função StatusCarrinho, que é o nosso componente e vamos retornar algumas coisas. Vamos ter principalmente views e text. export default function StatusCarrinho() { return }.
+
+[01:24] Já vamos importar, abrindo chaves. view e text de from React Native. import { View, text } from 'react-native'. Vamos começar a nossa primeira view e precisamos aplicar os estilos nela também, precisamos ainda importar os estilos from ./estilos, que são os estilos que acabamos de colocar na pasta. import estilos from ' ./estilos'.
+
+[02:01] Vamos colocar dentro da View o style que já deixamos pronto, que é estilos.conteúdo. return <View style=[estilos.conteudo]>. Dentro dessa view de conteúdo, vamos ter duas views, a view de valor do total e a view do botão de concluir o pedido. Vamos criar a view style.total. <View style={estilos.total}>.
+
+[02:35] Dentro dela vamos ter o text style estilos.descricao, que vai ser aquele total do carrinho, <Text style={estilos.descricao}>Total do Carrinho:</Text>.
+
+[02:58] E temos o text de total mesmo do valor que ele tem o estilos.valor. <Text style={estilos.valor}></Text>;. Dentro desse estilo do total do valor vamos aplicar aquele Intl.NumberFormat, abre e fecha parênteses, colocamos qual é o local e que é pt-BR.
+
+[03:33] E o segundo parâmetro é um objeto passando o style: currency e a currency, que vai ser o nosso BRL, o nosso real brasileiro. Intl.NumberFormat('pt-BR' , { style: 'currency', currency: 'BRL' }).
+
+[03:50] Por fim, depois do parênteses .format, e temos que colocar o valor, o valor é o total. Não temos nenhuma informação do total, precisamos pegá-la por parâmetro.
+
+[04:02] Então na declaração do StatusCarrinho, eu vou adicionar as chaves e vou pedir uma variável total, essa variável vai ser passada lá quando eu chamar o componente. export dafault function StatusCarrinho( { total } ) {. Vamos colocar format (total). style: 'currency', currency: 'BRL' }).format(total)}.
+
+[04:20] Vamos utilizar esse componente para vermos o andamento de como estão ficando as coisas. Vamos abrir o “Index.js” do carrinho dentro de telas e aqui em cima, antes da FlatList, vamos adicionar StatusCarrinho com o total zerado já que ainda não temos o total, já vamos fazer. StatusCarrinho total ={0}.
+
+[04:51] Precisamos importar StatusCarrinho from, vamos ter que voltar também duas pastas, componentes/StatusCarrinho. import StatusCarrinho from '.. / .. / componentes/StatusCarrinho';. Vamos salvar. Pronto.
+
+[05:03] Já temos aqui em cima o status do nosso carrinho. Ainda falta adicionarmos o botão. Vamos voltar para o “index.js” do “StatusCarrinho” e depois dessa view total tendo apenas uma view de fechamento adicionamos a View style={estilos.botao};. Dentro dela vai ter o botão.
+
+[05:33] Lembra que temos que importar também, eu vou importar esse botão. Import Botao from, lá nos componentes que no caso já estamos na pasta de componentes, é só voltar na pasta e chamar o botão. import Botao from '../Botao'.
+
+[05:50] Vou continuar. O botão tem o valor que pode ser ‘Concluir Pedido’. Também precisa passar a propriedade invertido para ele inverter as cores do botão porque se ele tiver a cor roxa, vai ficar roxo no roxo e não vai dar para ver. Botao valor='Concluir Pedido' invertido />; Pronto. Temos o “Concluir Pedido”.
+
+[06:22] Agora precisamos fazer com que o total do carrinho seja o total real quando adicionamos o carrinho. Vamos vir aqui no “index.js” do carrinho e vamos criar uma constante que vai ser esse total.
+
+[06:38] Em cima vou criar uma const total =. Vamos percorrer os serviços do carrinho multiplicando a quantidade pelo preço e somando tudo isso. Para fazermos isso o JavaScript já tem uma função, que se chama reduce, podemos chamar os serviços do carrinho ponto reduce.
+
+[07:04] Podemos fazer isso em qualquer array do JavaScript e esse reduce vai ter dois parâmetros, o primeiro deles é uma função que vai ser o que vai acontecer em cada laço dessa repetição e o segundo valor é o valor inicial, vou colocar aqui como 0. const total = servicos.reduce() => {}, 0).
+
+[07:24] Vai começar com 0 e vamos ter a soma, que é o valor que vai ser agregado e temos do lado, como segundo parâmetro, o nosso objeto. Como já vimos, podemos fazer uma desconstrução e pegar apenas o preço e a quantidade.
+
+[07:45] Em cada laço desse for podemos apagar o abre e fecha chaves e acrescentar na soma o preço abrindo e fechando parênteses vezes a quantidade. const total = servicos.reduce((soma, {preco, quantidade}) => soma + (preco * quantidade);.
+
+[08:09] Abrimos e fechamos para ficar mais claro, mas a multiplicação vai ter prioridade. Basicamente o que está acontecendo é que estamos percorrendo cada um deles e retornando sempre a soma, que é o valor anterior desse laço somando pela multiplicação do preço vezes a quantidade.
+
+[08:31] Vamos alterar o total no lugar do zero e pronto, já temos o nosso Carrinho atualizado. StatusCarrinho total={total} />. Lembrando que este valor total é só relacionado aos serviços que estão aqui, é o valor fixo, não vai atualizar quando eu for atualizar a quantidade aqui inicialmente.
+
+[08:53] Na próxima aula, vamos ver um pouco mais sobre os estilos da nossa aplicação e também sobre a navegação que vamos fazer na nossa aplicação. Te vejo em breve.
+
+@@05
+Tratando o teclado virtual
+
+Que problema pode acontecer ao solicitarmos que o usuário digite algo em um campo dentro da aplicação, e qual a solução para este problema?
+
+Por padrão, quando o usuário clica no campo, o teclado não aparece, portanto precisamos invocá-lo manualmente.
+ 
+Alternativa correta
+O usuário pode não conseguir fechar o teclado, diante disso precisamos implementar um botão para que ele possa realizar esta ação.
+ 
+Alternativa correta
+O campo não fica visível quando está muito abaixo na tela pois o teclado acaba cobrindo-o. Podemos, nestes casos, ajustar a tela para que ele só ocupe o espaço acima do teclado, não deixando áreas inacessíveis.
+ 
+Utilizando o componente KeyboardAvoidingView ao redor da nossa tela podemos criar esse ajuste automático para que o teclado não cubra nenhuma parte. O código ainda tem uma diferenciação para android e ios, que está descrita abaixo:
+<KeyboardAvoidingView
+    behavior={Platform.OS == "ios" ? "padding" : "height"}
+    style={{ flex: 1 }}
+    >
+        // Conteúdo da tela
+</KeyboardAvoidingView>COPIAR CÓDIGO
+Alternativa correta
+O campo não fica visível quando está muito abaixo na tela pois o teclado acaba cobrindo-o. Podemos, nestes casos, ajustar o teclado para que ele fique em outra posição da tela, como por exemplo no topo.
+
+@@06
+Faça como eu fiz: Tela do carrinho
+
+Revisando nosso projeto, conseguimos identificar que quando tentamos editar uma quantidade que está na parte inferior da tela, o teclado sobrepõe o campo e não conseguimos ver o que estamos digitando. Corrigimos esse problema utilizando o KeyboardAvoidingView como container da nossa tela dentro ainda do SafeAreaView.
+Então copiamos nossa tela Servicos e colamos como Carrinho, mudando o item para sempre estar expandido, alteramos o texto do botão para "Remover do Carrinho", além de passar uma quantidade inicial. Também precisamos alterar no App.js para renderizar nossa nova tela em vez da tela de Servicos.
+
+Isolamos a SafeAreaView, a StatusBar e o KeyboardAvoidingView em na pasta src/componentes como TelaPadrao, sobrescrevendo os respectivos nas duas telas.
+
+Após finalizar a lista do Carrinho, vamos adicionar o status com um valor total do pedido e botão de "Concluir Pedido".
+
+Com isso criamos a tela de carrinho e resolvemos o bug onde teclado sobrescrevia o campo de quantidade das duas telas.
+
+@@07
+O que aprendemos?
+
+Nesta aula criamos a tela do carrinho reutilizando os componentes da aula anterior e criando a parte superior de status do carrinho. Os conceitos aprendidos nesta aula foram:
+Ajustar a tela utilizando KeyboardAvoidingView para que o teclado não sobreponha os campos;
+Como utilizar o reduce nativo do javascript para agregar valores;
+Criar um componente padrão para reutilizar sempre que quisermos prevenir os principais problemas de tela em Android e iOS.
