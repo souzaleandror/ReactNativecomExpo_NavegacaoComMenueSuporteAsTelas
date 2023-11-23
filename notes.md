@@ -953,3 +953,126 @@ Nesta aula aprendemos a utilizar a biblioteca React Navigation, inclusive:
 Instalamos a biblioteca, dependências e tipos de navegação;
 Configuramos nosso arquivo de rotas;
 Estilizamos o menu inferior.
+
+#### 23/11/2023
+
+@05-Finalizando o projeto e dicas
+
+@@01
+Projeto da aula anterior
+
+Caso queira começar daqui, você pode baixar o projeto da aula anterior nesse link.
+
+https://github.com/alura-cursos/alura-gatito-static/tree/Aula4
+
+@@02
+Dev tools: Reactotron
+
+[00:00] Nesse vídeo, vamos conhecer uma ferramenta de debug que vai nos ajudar a visualizar melhor os logs da nossa aplicação, mas, antes disso, vamos entender melhor o que são esses logs da nossa aplicação, como podemos usá-los e qual é o problema de usar um log sem essa ferramenta de debug.
+[00:18] Eu vou abrir aqui o "app.js", independente do que estiver no seu você "app.js" você pode testar junto comigo. Vamos pegar aqui antes do return da aplicação e vamos colocar um console.log("Alura"). Eu vou salvar e ele já vai recarregar aqui, mas precisamos dar uma olhada lá no nosso terminal. Já temos "Alura" aqui no nosso terminal.
+
+[00:49] Agora vamos pensar que queremos debugar um objeto, que esse objeto pode ser muito grande, então vou colocar aqui text: 'alura'.
+
+[01:10] Na verdade, pode ser um array, por exemplo, e podemos colocar várias vezes a palavra "alura". Copiar e colar aqui várias vezes. Agora imagina que esse nosso array aqui está dentro de um for, que está exibindo 10 vezes esse mesmo array. Para encontrarmos a ocorrência que estamos procurando para tentar entender, fica tudo bem bagunçado aqui dentro do console.
+
+[01:48] Nós temos, então, uma ferramenta que vai nos ajudar a organizar esses logs e vamos poder filtrar e visualizar de uma forma mais simplificada. Essa ferramenta se chama Reactotron. Para utilizá-la, precisamos tê-la instalada na nossa máquina. Eu já tenho aqui, mas vou mostrar para vocês como faço para baixar.
+
+[02:13] Basicamente, vocês podem vir aqui em "github.com/infiniterd/reactotron", que é o projeto oficial no GitHub do Reactotron, então podemos descer e vir em "Quick Installation Guide".
+
+[02:33] Vamos na página de "Realeases" para baixarmos a versão que queremos. Podemos vir, pular as versões Beta e vir direto para "Laters realease", que no caso aqui 2.17.1, é a última versão que não é Beta. Aqui embaixo, temos vários "Assets" que alguns deles são os instaláveis dependendo do seu sistema operacional.
+
+[03:00] No caso do Mac, você iria instalar o "dmg", você poderia baixar esse. Se você está usando Linux, provavelmente, vai ser, talvez, o "rpm" ou "deb". No Windows, você pode usar o "msi" ou o "exe". Você instala esse programa na sua máquina e ele vai abrir dessa forma.
+
+[03:23] Agora precisamos instalar o Reactotron dentro do nosso projeto também. Para isso, eu vou vir aqui no terminal, vou cancelar o que estamos executando. Eu vou rodar o comando npm install -- save-dev. O save-dav serve para que instalemos essa dependência somente no ambiente de dev, porque não precisamos dela no ambiente de produção. O save-dev e você escreve reactotron-react-native.
+
+[04:08] Vamos instalar reactotron-react-native no módulo save-dev. reactotron-react-native está instalado aqui, a versão 5.0.0. Agora precisamos vir no nosso código e configurar, mas antes vamos deixar “startado” já o nosso bundle novamente do React Native. Está “startado” novamente. Vou vir no código e recarregar só para ele pegar esse novo start que fizemos.
+
+[05:00] Agora no código, no "app.js" ainda, precisamos importar o Reactotron, então vamos importar import Reactotron from 'reactotron-react-native’;. Agora podemos utilizar esse objeto reactotron. Na verdade, primeiro temo que configura-lo embaixo, fora do export pode ser. Reactotron.configure().useReactNative().concect(). Isso vai fazer com que nos conectemos naquela aplicação que acabamos de instalar. Eu vou salvar e vamos dar uma olhada no que está acontecendo.
+
+[05:58] Ainda não tem nenhuma conexão. Para que o dispositivo seja conectado precisamos recarregar a nossa aplicação.
+
+[06:06] Pronto, recarreguei a aplicação. Aqui já temos um dispositivo, IOS 13.4, que no caso é o simulador e está ativo. Agora vamos ver como que fazemos para usar esses logs. Dentro do nosso "app.js", podemos chamar o Reactotron.log(), podemos colocar o que queremos, "alura" por exemplo, o queremos fazer o log.
+
+[06:35] Se viermos no Reactotron e dar um refresh, vamos ver que está aqui "alura" no formato de debug.
+
+[06:44] Podemos depois filtrar se quisermos só os debugs e vai aparecer só a parte de debug. Se colocarmos um objeto, vamos fazer um objeto em “app.js”, curso: "alura", então temos um objeto aqui que tem o parâmetro curso com o valor "alura".
+
+[07:08] Vindo no Reactotron e atualizando a aplicação, vamos ter que ir no nosso objeto e se expandirmos ele mostra os parâmetros. No caso, se for um objeto muito grande vai ficar sempre uma linha, não vai ser uma coisa muito chamativa dentro da nossa lista de logs, então podemos ver uma linha e expandir depois para ver todo o resto do conteúdo.
+
+[07:32] Aqui também podemos ver a data que esse log foi salvo, entre outros logs também que ele mostra, de API, se você estiver utilizando algumas requisições vai aparecer. Agora não queremos que tenhamos que importar toda vez esse Reactotron quando queremos chamar um log.
+
+[07:52] Podemos fazer uma coisa muito interessante, que é adicionar o Reactotron dentro do nosso entre " console.log". Para isso, basta fazermos o seguinte: colocamos console, já temos o objeto do console do Java Script mesmo, podemos colocar .tron, que é uma propriedade que não existe ainda não, então vamos declarar ela sendo igual a Reactotron. console.tron = Reactotron.
+
+[08:18] Fazendo isso, cada vez que chamarmos console.tron já vamos poder botar um .log, por exemplo, e exibir essa informação da mesma forma que está fazendo antes, só que a diferença é que é o console já está disponível em todos os arquivos da nossa aplicação, então não precisamos importar nada.
+
+[08:37] Vou salvar, vou recarregar e continuamos tendo os mesmos logs de antes. "Curso alura" novamente. Sempre que você quiser utilizar logs, precisa entender melhor o que está acontecendo na sua aplicação, eu recomendo utilizar o Reactotron.
+
+@@03
+Por que usar o Reactotron
+
+Em vídeo, vimos como integrar o Reactotron no nosso projeto. Quais afirmações abaixo são verdadeiras?
+
+Devemos instalar o Reactotron na nossa aplicação para que possamos visualizar os logs em produção, ou seja, conferir se a aplicação está rodando como esperado fora do ambiente de desenvolvimento.
+ 
+Alternativa correta
+Não é possível acessar os logs da nossa aplicação sem um programa como Reactotron.
+ 
+Alternativa correta
+Com o Reactotron consigo analisar mais facilmente logs com objetos grandes.
+ 
+Claro, pois o Reactotron minimiza os objetos em apenas uma linha, sendo muito mais simples navegar entre os logs. E, caso queira ver um objeto, basta expandir a linha dele.
+Alternativa correta
+Com Reactotron podemos visualizar os logs da nossa aplicação de forma cronológica.
+ 
+Sim! Com Reactotron podemos ver a linha do tempo de logs da nossa aplicação.
+
+@@04
+Desafio: Refatore!
+
+No nosso curso utilizamos alguns arquivos repetidos ou copiados, que tal começar com o Item e fazer dele um único componente reutilizável?
+
+@@05
+Faça como eu fiz: Configurando o Reactotron
+
+Para utilizar o Reactotron, precisamos primeiro instalar a aplicação no computador e também instalar a biblioteca no projeto. Então configuramos uma conexão e adicionamos o Reactotron no console para facilitar a chamada. Simples assim.
+
+Adicionar Reactotron nos nossos projetos pode ajudar a debugar o código em React Native. Caso queira saber mais sobre, este é o link para o projeto no github: https://github.com/infinitered/reactotron.
+
+https://github.com/infinitered/reactotron
+
+@@06
+Para saber mais: Visual Studio Code
+
+Um dos editores de texto mais populares é o Visual Studio Code ou, para os mais chegados, vscode. Esse foi o editor que utilizamos para preparar este curso e também para gravação das aulas. Por ser bem flexível e conter uma comunidade de plugins ativa, é possível utilizá-lo para quase qualquer linguagem, mesmo não sendo a melhor opção para todas. Mas no caso de javascript e react native é uma opção gratuita a se considerar. Se ainda não tiver um editor de texto ou quiser testar um novo, você pode baixar ele diretamente do site para Mac, Windows ou Linux.
+Com ele podemos também customizar a aparência que mais se encaixa com seu estilo, ou de acordo com sua necessidade. Mas se estiver sem ideias, vou mostrar como configurar o seu vscode da forma que eu gosto. Vamos instalar o tema Dracula Official a partir da aba de extensões do vscode. Então é só selecionar a cor Dracula e já temos um tema configurado.
+
+Outro recurso legal que podemos utilizar é o fontLigatures, que permite com que alguns caracteres se juntem formando um símbolo, como por exemplo um traço mais uma seta (->) que se tornam um único caractere com essa fonte, muito mais simples de ler, além de ser muito legal. As fontes padrão normalmente não têm esse recurso, mas uma das mais famosas fontes para codar, a firacode, nos permite fazer isso. Para configurá-la, precisamos antes baixa-lá do github do projeto e instala-la no nosso computador, todos esses passos estão no link How to install, pois a instalação varia de sistema operacional, mas no geral é um processo simples: basta abrir a pasta ttf do zip baixado e instalar a fonte regular dando dois cliques nela.
+
+Com ela instalada podemos configurá-la em vários editores de texto, mas para o vscode vamos acessar as configurações em Code > Preferences > Settings, digitamos font na pesquisa e em Font Family substituímos por Fira Code.
+
+Para habilitar as fontLigatures vamos, dentro da sessão Editor: Font Ligatures, clicar no link Edit in settings.json e então alteramos para "editor.fontLigatures": true. Agora em qualquer arquivo do vscode já podemos ver as alterações de fonte e os símbolos se formando ao juntar dois caracteres, como igual igual (==), exclamação igual (!=), mais mais (++), maior igual (>=), menor igual (<=) e vários outros.
+
+@@07
+Projeto final do curso
+
+Caso queira, você pode baixar aqui o projeto completo implementado neste curso.
+
+https://github.com/alura-cursos/alura-gatito-static/tree/Aula5
+
+@@08
+O que aprendemos?
+
+Instalamos uma dev tool no nosso projeto, o Reactotron. Ele facilita a leitura de logs e requisições, criando uma timeline filtrável com os logs.
+Além disso, esse é o fim do nosso curso. Parabéns por concluir mais um curso na Alura!
+
+Você pode encontrar o projeto completo nesse link.
+
+https://github.com/alura-cursos/alura-gatito-static
+
+@@09
+Conclusão
+
+[00:00] Parabéns a todos que chegaram até aqui e concluíram mais um curso na Alura. Nesse curso, aprendemos a criar uma aplicação React Native do zero utilizando o Expo.
+[00:10] Também aprendemos as melhores práticas para que possamos se adequar, tanto em dispositivos Android quanto em dispositivos IOS. Eu queria lembrar aqui também que, caso vocês tenham alguma dúvida, a nossa comunidade está ativa para conversar sobre esse e outros assuntos.
+
+[00:27] Também temos vários cursos de tecnologia e programação que você pode encontrar na Alura para você se manter atualizado no mundo da tecnologia. Te vejo no próximo curso.
