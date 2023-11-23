@@ -778,3 +778,178 @@ Nesta aula criamos a tela do carrinho reutilizando os componentes da aula anteri
 Ajustar a tela utilizando KeyboardAvoidingView para que o teclado não sobreponha os campos;
 Como utilizar o reduce nativo do javascript para agregar valores;
 Criar um componente padrão para reutilizar sempre que quisermos prevenir os principais problemas de tela em Android e iOS.
+
+#### 23/11/2023
+
+@04-Navegação
+
+@@01
+Projeto da aula anterior
+
+Caso queira começar daqui, você pode baixar o projeto da aula anterior nesse link.
+
+https://github.com/alura-cursos/alura-gatito-static/tree/Aula3
+
+@@02
+Versões utilizadas
+
+Para evitar incompatibilidades com versões mais recentes, siga as instruções de instalação do próximo vídeo, porém especificando a versão das bibliotecas:
+npm install @react-navigation/native@5.9.2
+npm install @react-navigation/bottom-tabs@5.11.7
+
+@@03
+Navegação básica
+
+[00:00] Nós já temos as nossas telas, mas ainda não conseguimos navegar de uma tela para outra sem ter que alterar no "app.js" qual é a tela que queremos mostrar. Podíamos implementar um componente que ficasse aqui embaixo e passasse algumas informações por estado, por exemplo, e mudássemos de tela de acordo com esse componente.
+[00:21] Mas, para simplificar as coisas, já temos uma biblioteca no React Native que nos permite fazermos essa navegação de uma forma bem mais simplificada e também permite fazer vários outros tipos de navegação se você tiver interesse.
+
+[00:34] Bom, essa biblioteca se chama React Navigation, vou entrar aqui na documentação dela, aqui em “docs” no “reactnative.org” e no "Getting Started" já temos algumas informações de como que fazemos para instalar essa biblioteca.
+
+[00:52] Precisamos rodar esse comando: npm install @react-navegation/native. Vou vir aqui no terminal, estou rodando aqui o projeto, vamos cancelar porque vamos precisar rodar de novo já que vamos instalar nossas dependências.
+
+[01:08] Vou rodar aqui o “react native install" que pode demorar um pouco. Pronto, já está instalado o "react-navigation/native" versão 5.9.2, mas podemos rolar aqui para baixo na instalação e temos ainda que instalar algumas dependências que podem ser utilizadas dependendo do tipo de navegação que escolhermos.
+
+[01:30] No caso, estamos utilizando o expo, vamos usar esse comando: expo install react-native-gesture-handler react-native-reanimated react-native-screens, se você tivesse utilizando o projeto react-native sem o expo seria provavelmente esse comando aqui embaixo, npm install. Podemos ver neste link.
+
+[01:43] Vamos copiar o comando do expo, rodamos aqui também, então ele vai estar react-native-gesture-handler, react-native-reanimated, react-native-screens, react-native-safe-area-context e @react-native-community/masked-view.
+
+[02:04] Vou dar um "Enter", também pode demorar um pouco como vai baixar essas dependências da internet. Pronto, já temos as nossas dependentes instaladas. Agora, temos que instalar também, quando queremos utilizar o react-navigation, qual é o tipo de navegação que vamos utilizar.
+
+[02:24] No nosso caso, vamos usar esse Tab navigation, então eu estou nos "Docs" ainda, em "Guides > Tab navigation", e para instalarmos basta rodar npm install @react-navigation/bottom-tabs.
+
+[02:40] Pronto, instalou também. Agora já temos tudo que precisamos para podermos começar a configurar a nossa navegação. Vamos rodar o nosso projeto de novo, npm start, e como eu estou aqui no simulador, vou recarregar também a página do simulador, que ela está desconectada aqui, vou recarregar para ele pegar as atualizações certas. Pronto.
+
+[03:06] Já estamos aqui na nossa tela do carrinho novamente e vamos começar, então, fazendo a nossa tab bar aqui embaixo. Vou vir no nosso editor de texto, deixar o simulador do lado, e podemos começar criando um arquivo para configurar essas rotas.
+
+[03:29] Dentro de "src" vou criar aqui um arquivo chamado "rotas.js". Começar importando o React, porque vamos precisar utilizar tags, então import React from 'react'. Vamos importar o nosso componente de navegação, então utilizamos as chaves, import {NavigationContainer}.
+
+[04:06] Esse componente vai ser igual para qualquer tipo de navegação que formos criar. Ele vai ser import {NavigationContainer} from '@react-navigation/native'. Agora vamos importar o método que vai fazer a criação do nosso Tab Navigation. Para isso, importamos o import {createBottomTabNavigator} from '@react-navigation/ bottom-tabs', que foi a última coisa que tínhamos importado no nosso projeto. OK.
+
+[04:51] Agora, precisamos importar quais são as telas que queremos utilizar na nossa navegação. As nossas telas são a tela de carrinho e a tela de serviços que fizemos antes, então vamos importar as duas. Vou colocar import Servicos from, aí navegamos até a tela de serviços, './telas/Servicos', a mesma coisa com a do carrinho, import Carrinho from './telas/Carrinho'.
+
+[05:32] Nós já temos as telas importadas, então agora vamos começar a criar a nossa tab bar mesmo. Vou fazer uma constante aqui chamada Tab, que vai ser igual ao = createBottomTabNavigator que acabamos de adicionar. A nossa Tab que vamos utilizar, precisamos exportar default, como se estivéssemos criando um componente mesmo, no caso vai ser um componente. export default function Rotas() {}.
+
+[08:08] Aqui retornamos o nosso return <NavigationContainer> como um componente mesmo. Dentro dele vamos ter a nossa Tab.Navigator e dentro vamos ter as nossas screens, que vão ser Tab.Screem. return <NavigatorContainer> <Tab.Navigator> < Tab.Screen>.
+
+[06:43] Vamos ter alguns parâmetros aqui, que vai ser o name, que é o nome de exibição, podemos colocar "Serviços", por exemplo, e o componente que é o componente da nossa tela, que é isso que acabamos de importar ali em cima chamado o "Servicos". <Tab.Screen name="Serviços" componente={Servicos} />.
+
+[07:07] Vou copiar aqui e fazer a mesma coisa para o carrinho, criando uma Tab.Screen para o carrinho. <Tab.Screem name="Carrinho" componente={Carrinho} />. Ok. Vou salvar aqui, mas nada vai acontecer porque não estamos utilizando esse componente em nenhum lugar.
+
+[07:24] Vamos vir no "app.js" e trocar esse carrinho que está manual pelas nossas telas. Vou colocar aqui, então. import Rotas from './src/Rotas, e aqui no lugar do return Carrinho vou colocar return Rotas. Vou salvar.
+
+[07:51] Pronto, recarregou aqui e já podemos ver que estamos na tela de serviços do novo, mas se olharmos aqui embaixo temos um menu e podemos clicar no carrinho e somos navegados para a tela do carrinho.
+
+[08:04] Nós já temos aqui a nossa navegação. Na próxima aula, vamos começar a estilizar essa navegação para ela ficar mais a cara do nosso aplicativo.
+
+https://reactnavigation.org/docs/getting-started
+
+@@04
+Estilização Tab Bar
+
+[00:00] Mesmo o ‘react-navigation’ sendo uma biblioteca de navegação, conseguimos estilizar várias coisas e configurar várias customizações para ela. Por exemplo, podíamos alterar qualquer coisa de cores aqui, tirar o texto e colocar apenas ícones, mas, no nosso caso, o que vamos fazer?
+[00:18] Vamos aumentar um pouco a fonte, deixar mais centralizado e fazer com que tenhamos um background laranja com uma barra em cima roxa na aba que estiver ativa. Por exemplo, aqui a aba que está ativa só tem aqui um 'Serviços" com a cor azul, a cor ficar azul. Vamos fazer com que fique roxa a cor e em cima tenha uma barra roxa também.
+
+[00:47] Para isso, precisamos vir aqui em "Rotas.js", e vamos importar primeiro as cores que já temos dos estilos para ficar mais fácil para utilizarmos. Vou colocar aqui import { cores } from './estilos'.
+
+[01:02] Já que já estamos na pasta raiz dos códigos, temos os nossos estilos que adicionamos nas últimas aulas. Ok. Adicionando as cores, podemos vir aqui na Tab.Navigator, e adicionamos uma propriedade chamada tabBarOptions e ela vai ser igual a um objeto, então precisamos adicionar duas chaves aqui. <Tab.Navigator tabBarOptions={ {.
+
+[01:32] Vamos começar alterando a cor ativa, aqui estar azul, vamos colocar roxo, então vamos aqui em activeTintColor e podemos colocar aqui cores.roxo. Vamos alterar também o inactiveTintColor para cores.claro.
+
+[01:57] Como estamos com o fundo branco, quase não vai dar para ver o inativo aqui, mas ele está aqui. Já vamos alterar depois o fundo e vamos conseguir ver melhor. Está funcionando ainda, estamos o ativo roxo e o inativo está bem claro, quase que não vemos.
+
+[02:15] Vamos começar a alterar o texto, a label no caso aqui, é labelStyle, e o labelStyle recebe um objeto, então podemos alterar aqui no labelStyle começando com fontWeigth para deixarmos ele em negrito, bold, também podemos alterar fontSize, vamos colocar uma fonte maior, 16.
+
+[02:45] lineHeigth, que depois vamos utilizar para facilitar na mudança aqui da posição dos serviços, na posição do label em si, então vamos colocar aqui lineHeigth como sendo 21. labelStyle: { fontWeigth: 'bold', fontSize: 16, lineHeigth: 21. Vamos salvar.
+
+[03:03] Já temos aqui os nossos serviços, o carrinho, nossos botões, nossos textos maiores. Vamos pensar em como que vamos fazer essa linha superior. Não temos uma forma de fazer isso simples aqui adicionando só uma propriedade e pronto, já temos a linha superior. Para isso, vamos ter que fazer um pouco na mão essa parte.
+
+[03:27] O que podemos pensar em fazer? Podemos fazer com que esse label ocupe quase todo o tamanho da tab, deixe apenas um espaço em cima, daí esse espaço que vai ser a nossa linha. Vamos fazer isso.
+
+[03:42] Vamos começar vindo aqui colocando width: '100%' e flex: 1. Isso vai fazer com que a nossa tab cresça, o nosso label cresça no tamanho inteiro da tab. Vou recarregar aqui.
+
+[04:08] Pronto. Agora o nosso label está do tamanho inteiro, tanto que ele está aqui em cima porque é a primeira posição que ele pode pensar em estar, mas vamos fazer com que ele fique com uma marginTop de 3, que essa vai ser o tamanho da nossa linha, e também podemos botar um paddingTop: 21 para que esse texto fique mais para baixo. E colocamos também o backgroundColor: cores.laranja. Vamos salvar.
+
+[04:53] Temos aqui a nossa cor de fundo laranja e os nossos botões aqui, agora dá para ver o mais claro, mas o selecionado está roxo e o outro fica mais claro, quase branco. Podemos ver aqui que mesmo fazendo tudo esse cálculo aqui, botando todas essas coisas, ainda estamos com esse botão aqui do IOS, essa barra do IOS por cima.
+
+[05:21] Isso acontece porque a nossa tela padrão, o SafeAreaView está só dentro, internamente, então temos que transferir ele aqui para fora. Vamos pegar aqui as nossas telas de carrinho e de serviços, então entramos aqui no "index" de cada uma delas e vamos remover a tela padrão.
+
+[05:45] Podemos remover a tela padrão e deixar só um componente vazio, como se fosse um fragmento. Vou salvar aqui e remover aqui dos imports da tela padrão também. Mesma coisa no "Serviços". Vamos ver aqui que vai começar a ficar estranho, mas já vamos arrumar.
+
+[06:05] Vamos tirar aqui a tela padrão dos imports de serviços e deixar aqui apenas um fragmento. E vamos no "app. js" e colocamos a nossa tela padrão, export default function App() {return <TelaPadrao><Rotas />, e deixamos as rotas dentro dela. Vou salvar aqui.
+
+[06:30] Precisa importar também, import TelaPadrão from './src/componentes/TelaPadrao'. Agora já temos essa parte por cima, mas ainda está pequeno porque não mudamos o tamanho do nosso menu inferior. Vamos voltar para as "Rotas" e adicionar também um style: { height: 70, }. Pronto.
+
+[07:18] Agora temos uma SafeAreaView e todas aquelas configurações que fizemos por fora de todas as nossas rotas, então todas as rotas vão ter essa configuração, e temos também aqui a nossa barra com texto centralizado.
+
+[07:35] Agora precisamos fazer com que essa barra mude de cor com base no que estiver ativo no momento. Para isso, voltamos aqui quase no começo, embaixo do inactiveTintColor e podemos declarar aqui activeBackgroundColor como sendo roxo e o inativo sendo laranja, para ele parecer que é a mesma coisa aqui.
+
+[08:02] activeBackgroundColor: cores.roxo, inactiveBackgroundColor: cores.laranja. Salvei. Pronto. Agora temos aqui nossa barra sempre que ela estiver ativa.
+
+[08:18] Ainda temos mais um problema que acontece no IOS, não vai acontecer, deixa eu adicionar o Keyboard. No IOS e no Android também vai acontecer dessa barra ficar aqui por cima e acaba cortando grande parte da tela. Queremos que essa barra não fique visível quando abrimos o teclado. Vamos ver aqui no final, quando fechamos o labelStyle, vou adicionar aqui keyboardHideTabBar: true.
+
+[09:05] Agora, sempre que abrirmos a nossa tabBar não vai mais aparecer, sempre que abrirmos o teclado. Na próxima aula, vamos ver melhor como estilizar essa parte superior e inferior aqui que está, no caso, em branco na nossa aplicação. Te vejo em breve.
+
+@@05
+Estilização das bordas
+
+[00:00] Pode parecer que agora já temos todos os nossos estilos da nossa aplicação prontos, mas se olharmos aqui, por exemplo, no dispositivo IOS mais recente temos o Notch, que está branco, e essa barra inferior que também está branca.
+[00:15] No Android, também vamos ter algumas coisas, por exemplo o Notch pode ser que ela esteja só mais escura, mas ela não tem nenhuma customização nossa. Ok. Vamos começar a customizar então essa parte inferior e superior.
+
+[00:31] Para isso, precisamos entrar lá dentro do nosso componente de tela padrão. Dentro da tela padrão a parte mais simples que podemos fazer é adicionar aqui no StatusBar uma cor, isso vai fazer com que essa cor seja aplicada, mas apenas em Android na parte superior.
+
+[00:52] Vamos começar importando aqui dos estilosGlobal também as cores para ficar mais fácil para utilizarmos elas aqui. import estilosGlobal, {cores} from '../../estilos. Colocamos aqui dentro do StatusBar backgroundColor=cores.roxo.
+
+[01:12] No meu simulador nada vai acontecer como eu disse, isso vai acontecer só em Android. Feito isso, para alterarmos no IOS o que precisamos fazer? Precisamos alterar os estilos da SafeAreaView mesmo, então precisamos alterar aqui dentro da SafeAreaView para termos uma cor.
+
+[01:32] Vamos criar dentro da nossa pasta aqui de tela padrão um arquivo chamado "estilos.js". Nesse "estilos" vamos importar o import { StyleSheet } from 'react-native', que vai ser a nossa classe que vai permitir criarmos estilos. Podemos importar também as cores, import { cores } from '../.. / .. /estilos'.
+
+[02:17] Agora exportamos como default o nosso estilo, export default StyleSheet.creat( { } ). Aqui dentro, então, podemos criar as nossas classes de estilos. Vamos colocar ajusteTela:, precisamos manter o flex: 1, que é o que já temos dentro do nosso SafeAreaView, então mantemos o flex: 1 e adicionamos ainda um backgroundColor: cores.roxo. ajusteTela: { flex: 1, backgroundColor: cores.roxo}. Vou salvar. Nada vai acontecer porque não estamos utilizando esses "styles" aqui.
+
+[03:01] Vamos importar esses estilos, import estilos from './estilos. Estamos importando. Agora, utilizamos aqui ao invés de estilosGloal.preencher na SafeAreaView estilos.ajusteTela. Vamos salvar. Nós já temos a nossa parte superior roxa, mas a nossa parte inferior está roxa também, não queremos que ela fica roxa também porque não combina com esse menino menu aqui, seria legal se ela ficasse só laranja mesmo igual o menu.
+
+[03:44] Para fazer isso, vamos precisar criar uma segunda SafeAreaView, e essa segunda SafeAreaView vai ser aplicada aqui embaixo. A primeira SafeAreaView que temos vai identificar a cor aqui para cima e a segunda vai aplicar para baixo.
+
+[04:02] Vamos criar, então, embaixo da SafeAreaView outra SafeAreaView, mas não podemos retornar duas coisas no React Native, então adicionamos aqui um fragmento para não mexermos na estrutura em si do nosso projeto e sim só agrupar essas duas SafeAreaView.
+
+[04:23] Vamos adicionar </ SafeAreaView />. Salvando, já podemos ver que embaixo já está branco, então só precisamos aplicar estilos para ela também.
+
+[04:37] Vamos vir nos nossos estilos que criamos, vamos colocar ajusteTelaBaixo, abrindo como objeto, colocamos aqui flex: 0 para ter certeza que ela não vai ocupar nenhum espaço na nossa tela, e backgroundColor: cores.laranja.
+
+[05:01] E voltamos no “index.js” e aplicamos como style=estilos.ajusteTelaBaixo. </ SafeAreaView style=estilos.ajusteTelaBaixo. Pronto. Agora já temos o ajuste das cores da nossa parte superior e da parte inferior. O nosso menu está funcionando.
+
+[05:26] Te vejo então no próximo vídeo.
+
+@@06
+Criando a navegação
+
+Na última aula criamos a navegação do nosso aplicativo que, por meio de abas na parte inferior, pudemos mudar entre as telas de Serviços e Carrinho. Marque a resposta que explica como fizemos essa navegação.
+
+Utilizamos a funcionalidade do próprio expo de telas, onde bastou editar o arquivo de rotas adicionando nossas telas e o informar um tipo de navegação.
+ 
+Alternativa correta
+Criamos um componente que engloba todas as telas e, nesse componente, implementamos manualmente a nossa lógica de troca de telas dependendo de botões que adicionamos no inferior da tela.
+ 
+Alternativa correta
+Utilizamos uma biblioteca chamada React Navigation, com que criamos um arquivo de rodas indicando quais as telas de nossa aplicação e qual o tipo de navegação. Então substituímos a chamada da tela pelas rotas.
+ 
+Criamos o arquivo Rotas.js dentro do nosso src para declarar as rotas e o tipo de navegação, então substituímos no App.js a chamada da tela pela chamada do componente Rotas.
+Alternativa correta
+No final de cada tela adicionamos um componente que continha os dois botões para troca de tela e, dependendo de qual apertávamos, executamos um método passado por parâmetro para o componente superior, que trocava a tela.
+
+@@07
+Faça como eu fiz: Criando a navegação
+
+Começamos seguindo a documentação do React Navigation, instalando a biblioteca via npm e as dependências via expo. Instalamos também a parte de bottom-tabs para podermos utilizar o tipo de navegação de abas na parte inferior.
+Então criamos nosso componente Rotas.js na pasta src contendo as regras da nossa navegação. Por fim, substituindo em App.js a página estática pelo nosso novo componente de Rotas dinâmico.
+
+Restou alterar os estilos do nosso menu inferior para ficar mais a cara do nosso projeto no componente Rotas. E também estilizar as bordas inferiores e superiores da nossa aplicação no componente TelaPadrao, deixando roxo em cima e laranja embaixo.
+
+Assim temos a navegação da nossa aplicação devidamente configurada e estilizada, não dependendo mais de alterar o arquivo inicial para ver uma determinada tela.
+
+@@08
+O que aprendemos?
+
+Nesta aula aprendemos a utilizar a biblioteca React Navigation, inclusive:
+Instalamos a biblioteca, dependências e tipos de navegação;
+Configuramos nosso arquivo de rotas;
+Estilizamos o menu inferior.
